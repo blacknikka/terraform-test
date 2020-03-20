@@ -1,0 +1,14 @@
+version: "3"
+services:
+  aws:
+    build: ./docker/aws
+    tty: true
+    working_dir: /src
+    volumes:
+      - "./src:/src"
+  tf:
+    build: ./docker/tf
+    tty: true
+    working_dir: /src
+    volumes:
+      - "./src:/src"
