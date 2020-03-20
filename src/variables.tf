@@ -13,5 +13,5 @@ variable "instance_type" {
 variable "base_name" {
   description = "base name for this project"
   type        = string
-  default     = "test"
+  default     = "test (this value is indicated from upper directory)"
 }
