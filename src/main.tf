@@ -25,6 +25,13 @@ provider "aws" {
 module "network" {
   source = "./modules/network"
 
-  # variables
   base_name = var.base_name
+}
+
+module "ec2" {
+  source = "./modules/ec2"
+
+  base_name = var.base_name
+  vpc_main = module.network.vpc_main
+  subnet_private = module.network.subnet_private
 }
