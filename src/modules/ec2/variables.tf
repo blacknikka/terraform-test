@@ -5,4 +5,7 @@ variable "base_name" {}
 variable "vpc_main" {}
 
 # subnet to create instances
-variable "subnet_private" {}
+variable "subnet_for_ec2" {}
+
+# key value for ssh
+variable "pub_key_value" {}

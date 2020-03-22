@@ -1,9 +1,16 @@
+# ssh key value pair.
+resource "aws_key_pair" "ssh_key" {
+  key_name   = "ssh_key"
+  public_key = var.pub_key_value
+}
+
 # aws_instance
 resource "aws_instance" "app" {
   ami                    = data.aws_ssm_parameter.amzn2_ami.value
   instance_type          = "t2.micro"
-  subnet_id              = var.subnet_private.id
+  subnet_id              = var.subnet_for_ec2.id
   vpc_security_group_ids = [aws_security_group.for_app_server.id]
+  key_name               = aws_key_pair.ssh_key.key_name
 
   tags = {
     Name = "${var.base_name}-ec2"
@@ -16,10 +23,10 @@ resource "aws_security_group" "for_app_server" {
   vpc_id      = var.vpc_main.id
 
   ingress {
-    description = "access from VPC"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
